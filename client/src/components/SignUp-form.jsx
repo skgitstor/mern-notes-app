@@ -29,26 +29,34 @@ const Ragisterform = () => {
     const showPassword = (e) => {
         if (e.target.checked) {
 
+            NewPassword.type = 'text'
             NewPasswordC.type = 'text'
         } else {
+            NewPassword.type = 'password'
             NewPasswordC.type = 'password'
         }
     }
     const newSubmit = async (e) => {
         e.preventDefault();
         try {
-            const formData = new FormData(e.target)
-            const userobj = {
-                "name": formData.get('newName'),
-                "email": formData.get('newEmail'),
-                "Password": formData.get('NewPassword')
+            // const formData = new FormData(e.target)
+
+            if (password === crpassword){
+                const userobj = {
+                    "name": name,
+                    "email": email,
+                    "Password": password
+                }
+                const data = await axios.post("http://localHost:5000/userRagister", userobj,{withCredentials: true});
+                setRes(data);
+                setName('')
+                setEmail('')
+                setPassword('')
+                setCrPassword('')
+
+            }else{
+                console.log("Password Doesn't match")
             }
-            const data = await axios.post("http://localHost:5000/userRagister", userobj,{withCredentials: true});
-            setRes(data);
-            setName('')
-            setEmail('')
-            setPassword('')
-            setCrPassword('')
 
         } catch (err) {
             console.log(err)
