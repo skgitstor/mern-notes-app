@@ -163,6 +163,7 @@ app.get('/api/check-session', (req, res) => {
         });
     } else {
         // Agar cookie nahi aayi ya session destroy/expire ho chuka hai
+        // return res.status(401).json({
         return res.status(401).json({
             status: "failed",
             message: "Session set nahi hua ya expire ho gaya"
