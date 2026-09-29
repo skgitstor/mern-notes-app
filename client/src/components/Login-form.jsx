@@ -1,8 +1,12 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { Route, Link, Routes } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { Route, Link, Routes, useNavigate } from 'react-router-dom'
+import { stateContext } from '../context/stateContext'
+
 
 const Loginform = () => {
+    const Navigate = useNavigate()
+    const states = useContext(stateContext)
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
 
@@ -40,6 +44,8 @@ const Loginform = () => {
             setRes(data)
             setPassword(``)
             setEmail(``)
+            states.setLoggedIn(true);
+            Navigate('/')
             }else{
                 console.log("please Enter The Password")
             }

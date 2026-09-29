@@ -102,13 +102,15 @@ app.post("/userRagister", async function (req, res) {
             userId: saved._id,
             user: req.session.user
         })
-        console.log(newUser._id)
-    } catch (err) { console.log("there is some error") }
+        // console.log(newUser._id)
+    } catch (err) { 
+        console.log("there is some error")
+    }
     //-------------------------------------------------------------
 })
 app.post('/userLogin', async (req, res) => {
     const { email, Password } = req.body;
-    console.log(`${email} is loggin in`)
+    // console.log(`${email} is loggin in`)
     try {
         const user = await User.findOne({ email: email });
 
@@ -127,11 +129,12 @@ app.post('/userLogin', async (req, res) => {
 
             const match = await bcrypt.compare(Password, dbhash);
 
-            console.log(`Password confirm = ${match}`)
+            // console.log(`Password confirm = ${match}`)
             if (match == true) {
 
                 req.session.user = {
                     id: db_id,
+                    name: dbname,
                     email: dbemail
                 };
 
@@ -142,7 +145,7 @@ app.post('/userLogin', async (req, res) => {
         }
 
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         res.send(`There is some error for ${email}`)
     }
 })
@@ -152,7 +155,7 @@ app.post('/userLogin', async (req, res) => {
 
 // server.js mein yeh route add karein
 app.get('/api/check-session', (req, res) => {
-    console.log("Current Session Data:", req.session);
+    // console.log("Current Session Data:", req.session);
 
     if (req.session && req.session.user) {
         // Agar server ne session cookie se user dhoondh liya

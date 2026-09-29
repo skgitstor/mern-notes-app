@@ -1,15 +1,17 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route, Link, Routes } from 'react-router-dom'
+import {stateContext} from "../context/stateContext";
 const Header = () => {
+    const states = useContext(stateContext)
 
     
-    const [loggedin,setLoggedIn] = useState(false);
+    // const [loggedin,setLoggedIn] = useState(false);
     const Logout = async (e) =>{
         e.preventDefault();
         const logout = await axios.get("http://localhost:5000/api/logout",{withCredentials: true});
         console.log(logout)
-        setLoggedIn(false);
+        states.setLoggedIn(false);
     }
     
     // let loggedin = false;
@@ -18,12 +20,14 @@ const Header = () => {
 
         try{
             const loginCheck = await axios.get("http://localhost:5000/api/check-session",{withCredentials: true});
+            
+            console.log(loginCheck.data.user)
     
-            setLoggedIn(true);
+            states.setLoggedIn(true);
             // console.log(loginCheck.status)
 
         }catch(err){
-            setLoggedIn(false);
+            states.setLoggedIn(false);
             // console.log(err)
         }
         
@@ -31,7 +35,7 @@ const Header = () => {
     useEffect( ()=>{
         check();
         // setLoggedIn([check.data])
-    }, [loggedin])
+    }, [states.loggedin])
     return (<>
         <header>
 
@@ -56,7 +60,7 @@ const Header = () => {
                 {/* <div className="navRight"><Link to="/Profile">Profile</Link></div> */}
                 <div className="d-flex navRight">
 
-                    {loggedin == true ? <Link onClick={(e)=>{Logout(e);}}>Logout</Link>:<Link to="/authPage/login">Login</Link>
+                    {states.loggedin == true ? <Link onClick={(e)=>{Logout(e);}}>Logout</Link>:<Link to="/authPage/login">Login</Link>
                     }
                     
                 </div>
