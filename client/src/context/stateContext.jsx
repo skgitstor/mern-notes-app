@@ -1,14 +1,17 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 export const stateContext = createContext();
-function StateContext({ children }) {
-    const [name1, setName] = useState('')
+function StateContext({ children }) { // Main function...
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
     const [loggedin, setLoggedIn] = useState(false)
+    
     const obj = {
-        name: name1,
-        setName:setName,
-        state1Set: setName,
-        loggedin:loggedin,
-        setLoggedIn:setLoggedIn
+        name,
+        setName,
+        email,
+        setEmail,
+        loggedin,
+        setLoggedIn
     }
     return (
         <>

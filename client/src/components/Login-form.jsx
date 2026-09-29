@@ -59,6 +59,11 @@ const Loginform = () => {
             console.log(res);
         }
     },[res])
+useEffect(()=>{
+    if(states.loggedin == true){Navigate('/')}
+
+},[])
+
     return (
         <>
             <div className="container">
