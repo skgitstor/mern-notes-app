@@ -1,10 +1,12 @@
-import { Route, Link, Routes } from 'react-router-dom'
+import { Route, Link, Routes, useNavigate } from 'react-router-dom'
 import axios from "axios"
-import { useEffect, useState } from 'react'
-
+import { useContext, useEffect, useState } from 'react'
+import { stateContext } from '../context/stateContext'
 
 
 const Ragisterform = () => {
+    const states = useContext(stateContext)
+    const Navigate = useNavigate()
     const [res, setRes] = useState('hello');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -53,6 +55,8 @@ const Ragisterform = () => {
                 setEmail('')
                 setPassword('')
                 setCrPassword('')
+                states.setLoggedIn(true);
+                Navigate('/')
 
             }else{
                 console.log("Password Doesn't match")

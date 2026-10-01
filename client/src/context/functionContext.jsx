@@ -36,7 +36,12 @@ function FunctionContext({ children }){ // Main Function...
     const Logout = async (e) => {
         e.preventDefault();
         const logout = await axios.get("http://localhost:5000/api/logout", { withCredentials: true });
-        states.setLoggedIn(false);
+        if(logout.status == 200){
+            console.log(logout.status)
+            states.setLoggedIn(false);
+            states.setEmail('')
+            states.setName('')
+        }
     }
 
     useEffect(() => {
